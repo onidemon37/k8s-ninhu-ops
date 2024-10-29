@@ -42,7 +42,7 @@ nodes:
     ipAddress: "192.168.89.131"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
-    controlPlane: true
+    controlPlane: false
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:e6:03:7a"
@@ -53,25 +53,6 @@ nodes:
           - network: 0.0.0.0/0
             gateway: "192.168.89.1"
         mtu: 1500
-        vip:
-          ip: "192.168.89.135"
-  - hostname: "stg-k8s-ops-3"
-    ipAddress: "192.168.89.132"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:88:2b:4f"
-        dhcp: false
-        addresses:
-          - "192.168.89.132/24"
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "192.168.89.1"
-        mtu: 1500
-        vip:
-          ip: "192.168.89.135"
 
 # Global patches
 patches:
