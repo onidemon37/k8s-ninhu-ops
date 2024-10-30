@@ -87,7 +87,7 @@ spec:
       image:
         repository: quay.io/prometheus/prometheus
         # if not set appVersion field from Chart.yaml is used
-        tag: "2.54.1"
+        tag: "v2.54.1"
         pullPolicy: IfNotPresent
 
       enableServiceLinks: true
