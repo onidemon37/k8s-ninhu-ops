@@ -27,10 +27,52 @@ spec:
       enabled: false
 
     serviceAccounts:
+      alertmanager:
+        create: false
+        name:
+      kubeStateMetrics:
+        create: true
+        name:
+      nodeExporter:
+        create: true
+        name:
+      pushgateway:
+        create: true
+        name:
       server:
         create: true
-        name: "prometheus-sa"
-        annotations: {}
+        name:
+
+
+    alertmanager:
+      enabled: true
+      name: alertmanager
+      image:
+        repository: prom/alertmanager
+        tag: v0.27.0
+        pullPolicy: IfNotPresent
+      baseURL: "/"
+
+      ingress:
+        enabled: false
+      strategy:
+        type: Recreate
+
+      persistentVolume:
+        enabled: true
+        accessModes:
+          - ReadWriteOnce
+        mountPath: /data
+        size: 2Gi
+        storageClass: "openebs-hostpath"
+      replicaCount: 1
+      resources:
+        limits:
+          cpu: 10m
+          memory: 32Mi
+        requests:
+          cpu: 10m
+          memory: 32Mi
 
     configmapReload:
       reloadUrl: ""
