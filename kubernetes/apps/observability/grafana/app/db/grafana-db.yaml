@@ -12,17 +12,6 @@ spec:
   walStorage:
     storageClass: "openebs-hostpath"
     size: 5Gi
-  databases:
-    - name: grafana
-  users:
-    - name: grafana_user
-      databases: grafana
-  connections:
-    - name: grafana-db
-      user: grafana_user
-      passwordSecret:
-        name: grafana-db-secret
-        key: password
 ---
 apiVersion: v1
 kind: Service
@@ -35,3 +24,27 @@ spec:
       targetPort: 5432
   selector:
     app: cluster-grafana-db
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grafana-db-init
+  namespace: cnpg-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-init
+        image: postgres:16
+        env:
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: grafana-db-secret
+                key: password
+        command: ["psql"]
+        args:
+          - "--host=cluster-grafana-db"
+          - "--username=postgres"   # Adjust as per your setup
+          - "--command=CREATE DATABASE grafana; CREATE USER grafana_user WITH ENCRYPTED PASSWORD '${GF_DATABASE_PASSWORD}'; GRANT ALL PRIVILEGES ON DATABASE grafana TO grafana_user;"
+      restartPolicy: OnFailure
