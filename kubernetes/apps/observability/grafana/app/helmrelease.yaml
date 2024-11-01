@@ -38,17 +38,6 @@ spec:
 
     automountServiceAccountToken: true
 
-    #autoscaling:
-    #  enabled: false
-    #  minReplicas: 1
-    #  maxReplicas: 5
-    #  targetCPU: "60"
-    #  targetMemory: ""
-    #  behavior: {}
-
-    #podDisruptionBudget:
-    #  minAvailable: 1
-
     deploymentStrategy:
       type: RollingUpdate
 
@@ -152,13 +141,13 @@ spec:
     dashboardProviders: {}
     dashboards: {}
     grafana.ini:
-      #database:
-      #  type: postgres
-      #  host: grafana-db-service.cnpg-system.svc.cluster.local:5432
-      #  name: grafana
-      #  user: ${GF_DATABASE_USER}
-      #  password: ${GF_DATABASE_PASSWORD}
-      #  ssl_mode: "disable"
+      database:
+        type: postgres
+        host: grafana-db-service.cnpg-system.svc.cluster.local:5432
+        name: grafana
+        user: ${GF_DATABASE_USER}
+        password: ${GF_DATABASE_PASSWORD}
+        ssl_mode: "disable"
 
       paths:
         data: /var/lib/grafana/
