@@ -20,7 +20,8 @@ spec:
     remediation:
       retries: 3
   values:
-    rbac: true
+    rbac:
+      create: true
     replicas: 1
 
     automountServiceAccountToken: true
