@@ -30,24 +30,26 @@ spec:
           secretRef:
             name: grafana-db-connection-secret
             key: DB_USER
+            namespace: observability
       - name: GF_DATABASE_PASSWORD
         valueFrom:
           secretRef:
             name: grafana-db-connection-secret
             key: DB_PASSWORD
+            namespace: observability
 
     automountServiceAccountToken: true
 
-    autoscaling:
-      enabled: true
-      minReplicas: 1
-      maxReplicas: 5
-      targetCPU: "60"
-      targetMemory: ""
-      behavior: {}
+    #autoscaling:
+    #  enabled: false
+    #  minReplicas: 1
+    #  maxReplicas: 5
+    #  targetCPU: "60"
+    #  targetMemory: ""
+    #  behavior: {}
 
-    podDisruptionBudget:
-      minAvailable: 1
+    #podDisruptionBudget:
+    #  minAvailable: 1
 
     deploymentStrategy:
       type: RollingUpdate
@@ -89,24 +91,24 @@ spec:
       interval: 30s
       scrapeTimeout: 30s
 
-    ingress:
-      enabled: true
-      ingressCLassName: internal
+    #ingress:
+    #  enabled: true
+    #  ingressCLassName: internal
 
-      annotations:
-        kubernetes.io/ingress.class: internal
-        kubernetes.io/tls-acme: "true"
+    #  annotations:
+    #    kubernetes.io/ingress.class: internal
+    #    kubernetes.io/tls-acme: "true"
 
-      hosts:
-        - "grafana.${SECRET_DOMAIN}"
+    #  hosts:
+    #    - "grafana.${SECRET_DOMAIN}"
 
-      path: /
-      pathType: Prefix
+    #  path: /
+    #  pathType: Prefix
 
-      tls:
-        - secretName: grafana-tls
-          hosts:
-            - "grafana.${SECRET_DOMAIN}"
+    #  tls:
+    #    - secretName: grafana-tls
+    #      hosts:
+    #        - "grafana.${SECRET_DOMAIN}"
 
     resources:
       limits:
@@ -133,21 +135,20 @@ spec:
       userKey: admin-user
       passwordKey: admin-password
 
-    plugins: []
-    datasources:
-      datasources.yaml:
-        apiVersion: 1
-        datasources:
-          - name: PostgreSQL
-            type: postgres
-            access: proxy
-            url: grafana-db-service.cnpg-system.svc.cluster.local:5432
-            database: grafana
-            user: ${GF_DATABASE_USER}
-            secureJsonData:
-              password: ${GF_DATABASE_PASSWORD}
-            jsonData:
-              sslMode: "disable"
+    #datasources:
+    #  datasources.yaml:
+    #    apiVersion: 1
+    #    datasources:
+    #      - name: PostgreSQL
+    #        type: postgres
+    #        access: proxy
+    #        url: grafana-db-service.cnpg-system.svc.cluster.local:5432
+    #        database: grafana
+    #        user: ${GF_DATABASE_USER}
+    #        secureJsonData:
+    #          password: ${GF_DATABASE_PASSWORD}
+    #        jsonData:
+    #          sslMode: "disable"
 
     notifiers: {}
     dashboardProviders: {}
@@ -160,7 +161,6 @@ spec:
         user: ${GF_DATABASE_USER}
         password: ${GF_DATABASE_PASSWORD}
         ssl_mode: "disable"
-
 
       paths:
         data: /var/lib/grafana/
