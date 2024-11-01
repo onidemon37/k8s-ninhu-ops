@@ -1,26 +1,26 @@
 ---
-apiVersion: postgresql.cnpg.io/v1
-kind: Cluster
+apiversion: postgresql.cnpg.io/v1
+kind: cluster
 metadata:
   name: cluster-grafana-db
   namespace: cnpg-system
 spec:
   instances: 1
   storage:
-    storageClass: "openebs-hostpath"
-    size: 5Gi
-  walStorage:
-    storageClass: "openebs-hostpath"
-    size: 5Gi
+    storageclass: "openebs-hostpath"
+    size: 5gi
+  walstorage:
+    storageclass: "openebs-hostpath"
+    size: 5gi
 ---
-apiVersion: v1
-kind: Service
+apiversion: v1
+kind: service
 metadata:
   name: grafana-db-service
   namespace: cnpg-system
 spec:
   ports:
     - port: 5432
-      targetPort: 5432
+      targetport: 5432
   selector:
     app: cluster-grafana-db
