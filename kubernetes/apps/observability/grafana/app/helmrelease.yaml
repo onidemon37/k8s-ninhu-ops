@@ -145,9 +145,10 @@ spec:
         type: postgres
         host: grafana-db-service.cnpg-system.svc.cluster.local:5432
         name: grafana
-        user: ${GF_DATABASE_USER}
-        password: ${GF_DATABASE_PASSWORD}
+        user: ${DB_USER}
+        password: ${DB_PASSWORD}
         ssl_mode: "disable"
+      existingSecret: grafana-db-connection-secret
 
       paths:
         data: /var/lib/grafana/
