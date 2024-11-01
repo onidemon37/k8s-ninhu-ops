@@ -24,6 +24,18 @@ spec:
       create: true
     replicas: 1
 
+    env:
+      - name: GF_DATABASE_USER
+        valueFrom:
+          secretRef:
+            name: grafana-db-connection-secret
+            key: DB_USER
+      - name: GF_DATABASE_PASSWORD
+        valueFrom:
+          secretRef:
+            name: grafana-db-connection-secret
+            key: DB_PASSWORD
+
     automountServiceAccountToken: true
 
     autoscaling:
@@ -44,12 +56,16 @@ spec:
       httpGet:
         path: /api/health
         port: 3000
+      initialDelaySeconds: 120
+      timeoutSeconds: 30
+      periodSeconds: 20
+      failureThreshold: 10
 
     livenessProbe:
       httpGet:
         path: /api/health
         port: 3000
-      initialDelaySeconds: 60
+      initialDelaySeconds: 120
       timeoutSeconds: 30
       failureThreshold: 10
 
@@ -125,18 +141,27 @@ spec:
           - name: PostgreSQL
             type: postgres
             access: proxy
-            url: cnpg-webhook-service.cnpg-system.svc.cluster.local:5432
+            url: grafana-db-service.cnpg-system.svc.cluster.local:5432
             database: grafana
-            user: "grafana_user"
+            user: ${GF_DATABASE_USER}
             secureJsonData:
-              password:
-                existingSecret: "grafana-db-secret"
-                key: "password"
+              password: ${GF_DATABASE_PASSWORD}
+            jsonData:
+              sslMode: "disable"
 
     notifiers: {}
     dashboardProviders: {}
     dashboards: {}
     grafana.ini:
+      database:
+        type: postgres
+        host: grafana-db-service.cnpg-system.svc.cluster.local:5432
+        name: grafana
+        user: ${GF_DATABASE_USER}
+        password: ${GF_DATABASE_PASSWORD}
+        ssl_mode: "disable"
+
+
       paths:
         data: /var/lib/grafana/
         logs: /var/log/grafana
@@ -150,4 +175,5 @@ spec:
         url: https://grafana.net
       server:
         domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ tpl (.Values.ingress.hosts | first) . }}{{ else }}''{{ end }}"
+
     revisionHistoryLimit: 10
