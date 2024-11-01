@@ -44,7 +44,10 @@ spec:
                 key: password
         command: ["psql"]
         args:
-          - "--host=cluster-grafana-db"
-          - "--username=postgres"   # Adjust as per your setup
-          - "--command=CREATE DATABASE grafana; CREATE USER grafana_user WITH ENCRYPTED PASSWORD '${GF_DATABASE_PASSWORD}'; GRANT ALL PRIVILEGES ON DATABASE grafana TO grafana_user;"
+          - -h
+          - cluster-grafana-db
+          - -U
+          - postgres   # Adjust as per your setup
+          - -c
+          - "CREATE DATABASE grafana; CREATE USER grafana_user WITH ENCRYPTED PASSWORD '${GF_DATABASE_PASSWORD}'; GRANT ALL PRIVILEGES ON DATABASE grafana TO grafana_user;"
       restartPolicy: OnFailure
