@@ -122,33 +122,33 @@ spec:
       userKey: admin-user
       passwordKey: admin-password
 
-    datasources:
-      datasources.yaml:
-        apiVersion: 1
-        datasources:
-          - name: PostgreSQL
-            type: postgres
-            access: proxy
-            url: grafana-db-service.observability.svc.cluster.local:5432
-            database: grafana
-            user: ${GF_DATABASE_USER}
-            secureJsonData:
-              password: ${GF_DATABASE_PASSWORD}
-            jsonData:
-              sslMode: "disable"
+    #datasources:
+    #  datasources.yaml:
+    #    apiVersion: 1
+    #    datasources:
+    #      - name: PostgreSQL
+    #        type: postgres
+    #        access: proxy
+    #        url: grafana-db-service.observability.svc.cluster.local:5432
+    #        database: grafana
+    #        user: ${GF_DATABASE_USER}
+    #        secureJsonData:
+    #          password: ${GF_DATABASE_PASSWORD}
+    #        jsonData:
+    #          sslMode: "disable"
 
     notifiers: {}
     dashboardProviders: {}
     dashboards: {}
     grafana.ini:
-      database:
-        type: postgres
-        host: grafana-db-service.cnpg-system.svc.cluster.local:5432
-        name: grafana
-        user: ${DB_USER}
-        password: ${DB_PASSWORD}
-        ssl_mode: "disable"
-      existingSecret: grafana-db-connection-secret
+      #database:
+      #  type: postgres
+      #  host: grafana-db-service.cnpg-system.svc.cluster.local:5432
+      #  name: grafana
+      #  user: ${DB_USER}
+      #  password: ${DB_PASSWORD}
+      #  ssl_mode: "disable"
+      #existingSecret: grafana-db-connection-secret
 
       paths:
         data: /var/lib/grafana/
