@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./grafana/ks.yaml
+  - ./grafana-db/ks.yaml
   - ./namespace.yaml
   - ./prometheus-operator-crds/ks.yaml
   - ./prometheus/ks.yaml
