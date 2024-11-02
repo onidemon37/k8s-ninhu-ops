@@ -1,0 +1,9 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./namespace.yaml
+  - ./placar-db/ks.yaml
+  #- ./api/ks.yaml
+  #- ./server/ks.yaml
+  #- ./dashboard/ks.yaml

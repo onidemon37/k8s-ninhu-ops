@@ -1,0 +1,13 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster-placar-db
+  namespace: placaron
+spec:
+  instances: 1
+  storage:
+    storageClass: openebs-hostpath
+    size: 1Gi
+  walStorage:
+    storageClass: openebs-hostpath
+    size: 1Gi
