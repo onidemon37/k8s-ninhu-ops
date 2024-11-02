@@ -1,6 +1,6 @@
 ---
 apiversion: postgresql.cnpg.io/v1
-kind: cluster
+kind: Cluster
 metadata:
   name: cluster-grafana-db
   namespace: cnpg-system
