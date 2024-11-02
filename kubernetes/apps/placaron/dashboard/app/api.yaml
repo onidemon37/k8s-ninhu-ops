@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dashboard
+    tier: prod
+    deployment: v0.1
+  name: dashboard
+  namespace: placaron
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: dashboard
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: dashboard
+        tier: staging
+        deployment: v0.1
+    spec:
+      restartPolicy: Always
+      containers:
+      - image: andorigna/placaron-dashboard:0.2.0
+        name: dashboard
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 4000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: dashboard
+  name: dashboard
+  namespace: placaron
+spec:
+  type: ClusterIP
+  ports:
+  - name: dashboard-svc
+    port: 4000
+    protocol: TCP
+    targetPort: 4000
+  selector:
+    app: dashboard
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  namespace: placaron
+  annotations:
+    kubernetes.io/ingress.class: internal
+    kubernetes.io/tls-acme: "true"
+spec:
+  ingressClassName: internal
+  rules:
+    - host: "dashboard.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dashboard
+                port:
+                  number: 4000
+  tls:
+    - hosts:
+        - "dashboard.${SECRET_DOMAIN}"
+      secretName: dashboard-tls
