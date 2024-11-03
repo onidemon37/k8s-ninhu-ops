@@ -27,7 +27,7 @@ spec:
         valueFrom:
           secretKeyRef:
             name: grafana-db-secret
-            key: GF_PASSWORD
+            key: DB_PASSWORD
     rbac:
       create: true
     replicas: 1
