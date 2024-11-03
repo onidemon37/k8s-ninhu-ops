@@ -74,18 +74,14 @@ spec:
 
     ingress:
       enabled: true
-      ingressCLassName: internal
-
+      ingressClassName: internal
       annotations:
         kubernetes.io/ingress.class: internal
         kubernetes.io/tls-acme: "true"
-
       hosts:
         - "grafana.${SECRET_DOMAIN}"
-
       path: /
       pathType: Prefix
-
       tls:
         - secretName: grafana-tls
           hosts:
