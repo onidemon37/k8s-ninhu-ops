@@ -107,19 +107,13 @@ spec:
       lookupVolumeName: true
 
     adminUser: admin
-    admin:
-      existingSecret: grafana-admin-secret
-      userKey: admin-user
-      passwordKey: admin-password
+    #admin:
+    #  existingSecret: grafana-admin-secret
+    #  userKey: admin-user
+    #  passwordKey: admin-password
 
     notifiers: {}
     grafana.ini:
-      #database:
-      #  type: postgres
-      #  host: grafana-db-service.observability.svc.cluster.local:5432
-      #  name: grafana
-      #  user: grafana_user
-      #  password: "${GF_DATABASE_PASSWORD}"
       paths:
         data: /var/lib/grafana/
         logs: /var/log/grafana
