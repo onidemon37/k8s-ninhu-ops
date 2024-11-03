@@ -23,6 +23,14 @@ spec:
     remediation:
       retries: 3
   values:
+    env:
+      - name: GF_DATABASE_USER
+        value: grafana_user
+      - name: GF_DATABASE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: grafana-db-secret
+            key: password
     rbac:
       create: true
     replicas: 1
@@ -115,10 +123,10 @@ spec:
     grafana.ini:
       database:
         type: postgres
-        host: postgres-service.database.svc.cluster.local:5432
+        host: grafana-db-service.observability.svc.cluster.local:5432
         name: grafana
         user: grafana_user
-        password: "{{ .Values.password }}"
+        password: "${GF_DATABASE_PASSWORD}"
       paths:
         data: /var/lib/grafana/
         logs: /var/log/grafana
