@@ -14,7 +14,7 @@ spec:
         namespace: flux-system
   valuesFrom:
     - secretRef:
-        name: postgres-secret
+        name: grafana-db-connection-secret
   install:
     remediation:
       retries: 3
@@ -118,7 +118,7 @@ spec:
         host: postgres-service.database.svc.cluster.local:5432
         name: grafana
         user: grafana_user
-        password: "{{ .Values.postgresPassword }}"
+        password: "{{ .Values.password }}"
       paths:
         data: /var/lib/grafana/
         logs: /var/log/grafana
