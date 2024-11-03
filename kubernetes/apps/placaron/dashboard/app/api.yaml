@@ -45,9 +45,9 @@ spec:
   type: ClusterIP
   ports:
   - name: dashboard-svc
-    port: 4000
+    port: 5000
     protocol: TCP
-    targetPort: 4000
+    targetPort: 5000
   selector:
     app: dashboard
 ---
@@ -71,7 +71,7 @@ spec:
               service:
                 name: dashboard
                 port:
-                  number: 4000
+                  number: 5000
   tls:
     - hosts:
         - "dashboard.${SECRET_DOMAIN}"
