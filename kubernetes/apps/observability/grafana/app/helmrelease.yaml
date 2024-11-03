@@ -12,6 +12,9 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
+  valuesFrom:
+    - secretRef:
+        name: postgres-secret
   install:
     remediation:
       retries: 3
@@ -115,11 +118,7 @@ spec:
         host: postgres-service.database.svc.cluster.local:5432
         name: grafana
         user: grafana_user
-        password:
-          valueFrom:
-            secretKeyRef:
-              name: postgres-secret
-              key: POSTGRES_PASSWORD
+        password: "{{ .Values.postgresPassword }}"
       paths:
         data: /var/lib/grafana/
         logs: /var/log/grafana
