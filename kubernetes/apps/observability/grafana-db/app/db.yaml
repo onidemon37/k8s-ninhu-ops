@@ -1,5 +1,5 @@
 ---
-apiversion: postgresql.cnpg.io/v1
+apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: cluster-grafana-db
@@ -7,8 +7,8 @@ metadata:
 spec:
   instances: 1
   storage:
-    storageclass: "openebs-hostpath"
-    size: 2gi
-  walstorage:
-    storageclass: "openebs-hostpath"
-    size: 2gi
+    storageClass: openebs-hostpath
+    size: 2Gi
+  walStorage:
+    storageClass: openebs-hostpath
+    size: 2Gi
