@@ -109,9 +109,17 @@ spec:
       passwordKey: admin-password
 
     notifiers: {}
-    dashboardProviders: {}
-    dashboards: {}
     grafana.ini:
+      database:
+        type: postgres
+        host: postgres-service.database.svc.cluster.local:5432
+        name: grafana
+        user: grafana_user
+        password:
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
       paths:
         data: /var/lib/grafana/
         logs: /var/log/grafana
