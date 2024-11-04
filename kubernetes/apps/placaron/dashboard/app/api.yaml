@@ -70,7 +70,7 @@ spec:
               service:
                 name: dashboard
                 port:
-                  number: 5000
+                  number: 80
   tls:
     - hosts:
         - "dashboard.${SECRET_DOMAIN}"
