@@ -57,7 +57,8 @@ metadata:
   namespace: placaron
   annotations:
     kubernetes.io/ingress.class: external
-    kubernetes.io/tls-acme: "true"
+    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
   ingressClassName: external
   rules:
