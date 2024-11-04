@@ -1,0 +1,156 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 25.29.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    crds:
+      enabled: true
+    defaultRules:
+      create: true
+      rules:
+        alertmanager: false
+        etcd: true
+        configReloaders: true
+        general: true
+        k8sContainerCpuUsageSecondsTotal: true
+        k8sContainerMemoryCache: true
+        k8sContainerMemoryRss: true
+        k8sContainerMemorySwap: true
+        k8sContainerResource: true
+        k8sContainerMemoryWorkingSetBytes: true
+        k8sPodOwner: true
+        kubeApiserverAvailability: true
+        kubeApiserverBurnrate: true
+        kubeApiserverHistogram: true
+        kubeApiserverSlos: true
+        kubeControllerManager: true
+        kubelet: true
+        kubeProxy: true
+        kubePrometheusGeneral: true
+        kubePrometheusNodeRecording: true
+        kubernetesApps: true
+        kubernetesResources: true
+        kubernetesStorage: true
+        kubernetesSystem: true
+        kubeSchedulerAlerting: true
+        kubeSchedulerRecording: true
+        kubeStateMetrics: true
+        network: true
+        node: true
+        nodeExporterAlerting: true
+        nodeExporterRecording: true
+        prometheus: false
+        prometheusOperator: true
+        windows: false
+    global:
+      rbac:
+        create: true
+    windowsMonitoring:
+      enabled: false
+    prometheus-windows-exporter:
+      prometheus:
+        monitor:
+          enabled: false
+
+# line 268 on the values chart
+alertmanager:
+  enabled: false
+  apiVersion: v2
+
+# line 958 on the values chart
+grafana:
+  enabled: false
+
+# line 1184
+kubernetesServiceMonitors:
+  enabled: false
+
+kubeApiServer:
+  enabled: false
+
+# line 1263
+kubelet:
+  enabled: true
+  namespace: kube-system
+
+# line 1469
+kubeControllerManager:
+  enabled: true
+
+# 1572
+coreDns:
+  enabled: true
+
+# 1650
+kubeDns:
+  enabled: false
+  service:
+    dnsmasq:
+      port: 10054
+      targetPort: 10054
+    skydns:
+      port: 10055
+      targetPort: 10055
+
+# 1744
+kubeEtcd:
+  enabled: true
+
+# 1849
+kubeScheduler:
+  enabled: true
+
+# 1949
+kubeProxy:
+  enabled: true
+
+# 2039
+kubeStateMetrics:
+  enabled: true
+
+kube-state-metrics:
+  namespaceOverride: ""
+  rbac:
+    create: true
+  releaseLabel: true
+  prometheus:
+    monitor:
+      enabled: true
+
+# 2113
+nodeExporter:
+  enabled: true
+  operatingSystems:
+    linux:
+      enabled: true
+    aix:
+      enabled: false
+    darwin:
+      enabled: false
+
+
+# 2213
+prometheusOperator:
+  enabled: true
+
+# 2956
+prometheus:
+  enabled: false
