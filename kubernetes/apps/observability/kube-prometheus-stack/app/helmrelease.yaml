@@ -70,87 +70,87 @@ spec:
         monitor:
           enabled: false
 
-# line 268 on the values chart
-alertmanager:
-  enabled: false
-  apiVersion: v2
-
-# line 958 on the values chart
-grafana:
-  enabled: false
-
-# line 1184
-kubernetesServiceMonitors:
-  enabled: false
-
-kubeApiServer:
-  enabled: false
-
-# line 1263
-kubelet:
-  enabled: true
-  namespace: kube-system
-
-# line 1469
-kubeControllerManager:
-  enabled: true
-
-# 1572
-coreDns:
-  enabled: false
-
-# 1650
-kubeDns:
-  enabled: false
-  service:
-    dnsmasq:
-      port: 10054
-      targetPort: 10054
-    skydns:
-      port: 10055
-      targetPort: 10055
-
-# 1744
-kubeEtcd:
-  enabled: false
-
-# 1849
-kubeScheduler:
-  enabled: true
-
-# 1949
-kubeProxy:
-  enabled: true
-
-# 2039
-kubeStateMetrics:
-  enabled: true
-
-kube-state-metrics:
-  namespaceOverride: ""
-  rbac:
-    create: true
-  releaseLabel: true
-  prometheus:
-    monitor:
-      enabled: true
-
-# 2113
-nodeExporter:
-  enabled: true
-  operatingSystems:
-    linux:
-      enabled: true
-    aix:
+    # line 268 on the values chart
+    alertmanager:
       enabled: false
-    darwin:
+      apiVersion: v2
+
+    # line 958 on the values chart
+    grafana:
       enabled: false
 
+    # line 1184
+    kubernetesServiceMonitors:
+      enabled: true
+    
+    kubeApiServer:
+      enabled: false
 
-# 2213
-prometheusOperator:
-  enabled: true
+    # line 1263
+    kubelet:
+      enabled: true
+      namespace: kube-system
 
-# 2956
-prometheus:
-  enabled: false
+    # line 1469
+    kubeControllerManager:
+      enabled: false
+    
+    # 1572
+    coreDns:
+      enabled: false
+
+    # 1650
+    kubeDns:
+      enabled: false
+      service:
+        dnsmasq:
+          port: 10054
+          targetPort: 10054
+        skydns:
+          port: 10055
+          targetPort: 10055
+
+    # 1744
+    kubeEtcd:
+      enabled: false
+
+    # 1849
+    kubeScheduler:
+      enabled: true
+
+    # 1949
+    kubeProxy:
+      enabled: true
+
+    # 2039
+    kubeStateMetrics:
+      enabled: true
+
+    kube-state-metrics:
+      namespaceOverride: ""
+      rbac:
+        create: true
+      releaseLabel: true
+      prometheus:
+        monitor:
+          enabled: true
+
+    # 2113
+    nodeExporter:
+      enabled: true
+      operatingSystems:
+        linux:
+          enabled: true
+        aix:
+          enabled: false
+        darwin:
+          enabled: false
+
+
+    # 2213
+    prometheusOperator:
+      enabled: true
+
+    # 2956
+    prometheus:
+      enabled: false
