@@ -97,7 +97,7 @@ kubeControllerManager:
 
 # 1572
 coreDns:
-  enabled: true
+  enabled: false
 
 # 1650
 kubeDns:
