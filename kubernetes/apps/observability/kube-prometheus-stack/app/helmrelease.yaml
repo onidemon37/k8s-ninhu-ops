@@ -112,7 +112,7 @@ kubeDns:
 
 # 1744
 kubeEtcd:
-  enabled: true
+  enabled: false
 
 # 1849
 kubeScheduler:
