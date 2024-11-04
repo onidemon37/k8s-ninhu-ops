@@ -61,7 +61,7 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-    - host: "dashboard.${SECRET_DOMAIN}"
+    - host: "dash.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /
@@ -73,5 +73,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - "dashboard.${SECRET_DOMAIN}"
+        - "dash.${SECRET_DOMAIN}"
       secretName: dashboard-tls
