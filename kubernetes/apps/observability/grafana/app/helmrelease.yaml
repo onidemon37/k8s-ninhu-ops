@@ -20,6 +20,13 @@ spec:
     remediation:
       retries: 3
   values:
+
+    sidecar:
+      dashboards:
+        enabled: false
+      datasources:
+        enabled: false
+
     rbac:
       create: true
     replicas: 1
