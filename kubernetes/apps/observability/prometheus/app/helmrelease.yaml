@@ -24,11 +24,11 @@ spec:
       create: true
 
     podSecurityPolicy:
-      enabled: false
+      enabled: true
 
     serviceAccounts:
       alertmanager:
-        create: false
+        create: true
         name:
       kubeStateMetrics:
         create: true
@@ -75,7 +75,6 @@ spec:
           memory: 32Mi
 
     configmapReload:
-      reloadUrl: ""
       prometheus:
         enabled: true
         name: configmap-reload
@@ -110,13 +109,13 @@ spec:
             scheme: HTTP
           periodSeconds: 10
 
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
-            memory: "128Mi"
-            cpu: "200m"
+        #resources:
+        #  requests:
+        #    memory: "64Mi"
+        #    cpu: "100m"
+        #  limits:
+        #    memory: "128Mi"
+        #    cpu: "200m"
 
     server:
       name: server
@@ -128,23 +127,12 @@ spec:
       ##
       image:
         repository: quay.io/prometheus/prometheus
-        # if not set appVersion field from Chart.yaml is used
         tag: "v2.55.0"
         pullPolicy: IfNotPresent
 
       enableServiceLinks: true
-
-
-      # List of flags to override default parameters, e.g:
-      # - --enable-feature=agent
-      # - --storage.agent.retention.max-time=30m
-      # - --config.file=/etc/config/prometheus.yml
-      defaultFlagsOverride: []
-
       extraFlags:
         - web.enable-lifecycle
-
-      ## Path to a configuration file on prometheus server container FS
       configPath: /etc/config/prometheus.yml
 
       global:
@@ -188,21 +176,6 @@ spec:
         size: 8Gi
         storageClass: "openebs-hostpath"
 
-        ## Persistent Volume Claim Selector
-        ## Useful if Persistent Volumes have been provisioned in advance
-        ## Ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#selector
-        ##
-        # selector:
-        #  matchLabels:
-        #    release: "stable"
-        #  matchExpressions:
-        #    - { key: environment, operator: In, values: [ dev ] }
-
-        ## Persistent Volume Name
-        ## Useful if Persistent Volumes have been provisioned in advance and you want to use a specific one
-        ##
-        # volumeName: ""
-
       replicaCount: 1
       revisionHistoryLimit: 10
       statefulSet:
@@ -214,7 +187,6 @@ spec:
           annotations: {}
           labels: {}
           servicePort: 80
-          ## Enable gRPC port on service to allow auto discovery with thanos-querier
           gRPC:
             enabled: false
             servicePort: 10901
@@ -272,13 +244,5 @@ spec:
           servicePort: 10901
           # nodePort: 10901
 
-        ## If using a statefulSet (statefulSet.enabled=true), configure the
-        ## service to connect to a specific replica to have a consistent view
-        ## of the data.
-        statefulsetReplica:
-          enabled: false
-          replica: 0
-
       terminationGracePeriodSeconds: 300
       retention: "15d"
-      retentionSize: ""

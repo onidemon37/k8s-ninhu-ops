@@ -5,5 +5,5 @@ resources:
   #- ./grafana-db/ks.yaml
   - ./namespace.yaml
   - ./prometheus-operator-crds/ks.yaml
-  - ./kube-prometheus-stack/ks.yaml
-  #- ./prometheus/ks.yaml
+  #- ./kube-prometheus-stack/ks.yaml
+  - ./prometheus/ks.yaml
