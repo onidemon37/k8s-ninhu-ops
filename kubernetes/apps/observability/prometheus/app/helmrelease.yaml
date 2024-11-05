@@ -43,9 +43,8 @@ spec:
         create: true
         name:
 
-
     alertmanager:
-      enabled: true
+      enabled: false
       name: alertmanager
       image:
         repository: prom/alertmanager
@@ -119,16 +118,11 @@ spec:
 
     server:
       name: server
-
-      clusterRoleNameOverride: ""
       releaseNamespace: false
-
-      ## Prometheus server container image
-      ##
       image:
         repository: quay.io/prometheus/prometheus
-        tag: "v2.55.0"
-        pullPolicy: IfNotPresent
+        tag: "v2.53.3"
+        pullPolicy: Always
 
       enableServiceLinks: true
       extraFlags:
