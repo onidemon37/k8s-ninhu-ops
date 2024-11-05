@@ -84,7 +84,7 @@ spec:
       enabled: true
     
     kubeApiServer:
-      enabled: false
+      enabled: true
 
     # line 1263
     kubelet:
@@ -93,15 +93,15 @@ spec:
 
     # line 1469
     kubeControllerManager:
-      enabled: false
+      enabled: true
     
     # 1572
     coreDns:
-      enabled: false
+      enabled: true
 
     # 1650
     kubeDns:
-      enabled: false
+      enabled: true
       service:
         dnsmasq:
           port: 10054
@@ -112,7 +112,7 @@ spec:
 
     # 1744
     kubeEtcd:
-      enabled: false
+      enabled: true
 
     # 1849
     kubeScheduler:
