@@ -59,7 +59,7 @@ spec:
         type: Recreate
 
       persistentVolume:
-        enabled: true
+        enabled: false
         accessModes:
           - ReadWriteOnce
         mountPath: /data
