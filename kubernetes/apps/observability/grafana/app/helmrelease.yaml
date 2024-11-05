@@ -126,3 +126,13 @@ spec:
         domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ tpl (.Values.ingress.hosts | first) . }}{{ else }}''{{ end }}"
 
     revisionHistoryLimit: 10
+
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-server.observability.svc.cluster.local
+          access: proxy
+          isDefault: true
