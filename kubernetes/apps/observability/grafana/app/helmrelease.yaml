@@ -66,7 +66,7 @@ spec:
       portName: service
 
     serviceMonitor:
-      enabled: true
+      enabled: false
       path: /metrics
       interval: 30s
       scrapeTimeout: 30s
