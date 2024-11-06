@@ -136,3 +136,47 @@ spec:
           url: http://prometheus-server.observability.svc.cluster.local
           access: proxy
           isDefault: true
+
+    dashboardProviders:
+      dashboardProviders.yaml:
+        apiVersion: 1
+        providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+
+    dashboards:
+      default:
+        kube-prometheus-dashboard:
+          gnetId: 15661
+          revision: 1
+          datasource: Prometheus
+        kube-state-metrics:
+          gnetId: 13332
+          revision: 12
+          datasource: Prometheus
+        kube-core-dns:
+          gnetId: 15762
+          revision: 18
+          datasource: Prometheus
+        kubernetes-dashboard:
+          gnetId: 18283
+          revision: 1
+          datasource: Prometheus
+        kubernetes-cluster:
+          gnetId: 7249
+          revision: 1
+          datasource: Prometheus
+        node-resource-cluster:
+          gnetId: 7249
+          revision: 1
+          datasource: Prometheus
+        flux-resources:
+          gnetId: 16714
+          revision: 1
+          datasource: Prometheus
