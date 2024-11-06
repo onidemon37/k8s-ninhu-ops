@@ -73,20 +73,18 @@ spec:
         type: Recreate
 
       persistentVolume:
-        enabled: false
+        enabled: true
         accessModes:
           - ReadWriteOnce
         mountPath: /data
         size: 2Gi
         storageClass: "openebs-hostpath"
       replicaCount: 1
-      resources:
-        limits:
-          cpu: 10m
-          memory: 32Mi
-        requests:
-          cpu: 10m
-          memory: 32Mi
+      podSecurityContext:
+        runAsUser: 65534
+        runAsNonRoot: true
+        runAsGroup: 65534
+        fsGroup: 65534
 
     configmapReload:
       prometheus:
