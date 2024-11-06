@@ -44,7 +44,7 @@ spec:
         name:
 
     alertmanager:
-      enabled: false
+      enabled: true
       name: alertmanager
       image:
         repository: prom/alertmanager
@@ -53,7 +53,22 @@ spec:
       baseURL: "/"
 
       ingress:
-        enabled: false
+        enabled: true
+        ingressClassName: internal
+
+        annotations:
+          kubernetes.io/ingress.class: internal
+          kubernetes.io/tls-acme: 'true'
+
+        hosts:
+          - "alertmanager.${SECRET_DOMAIN}"
+
+        path: /
+        pathType: Prefix
+        tls:
+          - secretName: alertmanager-server-tls
+            hosts:
+              - "alertmanager.${SECRET_DOMAIN}"
       strategy:
         type: Recreate
 
