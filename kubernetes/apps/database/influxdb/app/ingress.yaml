@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: influxdb
+  namespace: database
+  annotations:
+    kubernetes.io/ingress.class: internal
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: internal
+  tls:
+    - secretName: influxdb-server-tls
+      hosts:
+        - "influxdb.${SECRET_DOMAIN}"
+  rules:
+    - host: "influxdb.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: influxdb
+                port:
+                  name: http
