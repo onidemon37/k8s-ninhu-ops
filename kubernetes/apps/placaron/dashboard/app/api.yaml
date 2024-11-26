@@ -29,7 +29,6 @@ spec:
       - image: docker.io/andorigna/placaron-dashboard:v0.1.1
         name: dashboard
         imagePullPolicy: IfNotPresent
-        imagePullSecrets: dockerhub-secret
         ports:
           - containerPort: 80
 ---
