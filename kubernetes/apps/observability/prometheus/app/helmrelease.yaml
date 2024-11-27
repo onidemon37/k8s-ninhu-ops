@@ -52,23 +52,25 @@ spec:
         pullPolicy: IfNotPresent
       baseURL: "/"
 
-      ingress:
-        enabled: false
-        ingressClassName: internal
+#      ingress:
+#        enabled: false
+#        ingressClassName: internal
+#
+#        annotations:
+#          kubernetes.io/ingress.class: internal
+#          kubernetes.io/tls-acme: 'true'
+#
+#        hosts:
+#          - host: "alertmanager.${SECRET_DOMAIN}"
+#            paths:
+#              - path: /
+#                pathType: Prefix
+#
+#        tls:
+#          - secretName: alertmanager-server-tls
+#            hosts:
+#              - "alertmanager.${SECRET_DOMAIN}"
 
-        annotations:
-          kubernetes.io/ingress.class: internal
-          kubernetes.io/tls-acme: 'true'
-
-        hosts:
-          - "alertmanager.${SECRET_DOMAIN}"
-
-        path: /
-        pathType: Prefix
-        tls:
-          - secretName: alertmanager-server-tls
-            hosts:
-              - "alertmanager.${SECRET_DOMAIN}"
       strategy:
         type: Recreate
 
