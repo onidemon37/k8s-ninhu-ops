@@ -136,7 +136,7 @@ spec:
       releaseNamespace: false
       image:
         repository: quay.io/prometheus/prometheus
-        tag: "v2.53.3"
+        tag: "v2.55.1"
         pullPolicy: Always
 
       enableServiceLinks: true
