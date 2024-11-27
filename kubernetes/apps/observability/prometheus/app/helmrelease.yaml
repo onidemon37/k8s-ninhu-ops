@@ -63,13 +63,14 @@ spec:
         hosts:
           - host: "alertmanager.${SECRET_DOMAIN}"
             paths:
-              path: /
-              pathType: Prefix
+              - path: /
+                pathType: Prefix
 
         tls:
           - secretName: alertmanager-server-tls
             hosts:
               - "alertmanager.${SECRET_DOMAIN}"
+
       strategy:
         type: Recreate
 
