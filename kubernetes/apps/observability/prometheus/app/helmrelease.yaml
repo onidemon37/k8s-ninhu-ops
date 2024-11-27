@@ -61,10 +61,11 @@ spec:
           kubernetes.io/tls-acme: 'true'
 
         hosts:
-          - "alertmanager.${SECRET_DOMAIN}"
+          - host: "alertmanager.${SECRET_DOMAIN}"
+            paths:
+              path: /
+              pathType: Prefix
 
-        path: /
-        pathType: Prefix
         tls:
           - secretName: alertmanager-server-tls
             hosts:
