@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: prometheus
-      version: 26.0.0
+      version: 26.1.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -48,7 +48,7 @@ spec:
       name: alertmanager
       image:
         repository: prom/alertmanager
-        tag: v0.27.0
+        tag: v0.28.1
         pullPolicy: IfNotPresent
       baseURL: "/"
 
