@@ -54,7 +54,7 @@ spec:
     image:
       registry: docker.io
       repository: grafana/grafana
-      tag: "12.2.0"
+      tag: "13.2.1"
       pullPolicy: IfNotPresent
 
     createConfigmap: true
